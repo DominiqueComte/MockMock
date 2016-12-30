@@ -2,6 +2,7 @@ package com.mockmock.mail;
 
 import com.google.common.eventbus.EventBus;
 import com.mockmock.Settings;
+import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,14 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import java.io.*;
 import java.util.Properties;
 
 @Service
 public class MockMockMessageHandlerFactory implements MessageHandlerFactory
 {
-    private EventBus eventBus;
+    private final EventBus eventBus;
 	private Settings settings;
 
     @Autowired
@@ -126,6 +128,9 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
                     {
                         BodyPart bodyPart = multipart.getBodyPart(i);
                         String contentType = bodyPart.getContentType();
+                        contentType = contentType.replaceAll("\t|\r|\n", "");
+                        System.out.println(contentType);
+
                         if(contentType.matches("text/plain.*"))
                         {
                             mockMail.setBody(convertStreamToString(bodyPart.getInputStream()));
@@ -133,6 +138,22 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
                         else if(contentType.matches("text/html.*"))
                         {
                             mockMail.setBodyHtml(convertStreamToString(bodyPart.getInputStream()));
+                        }
+                        else if(contentType.matches("multipart/related.*")){
+                            // compound documents
+                            Multipart contentMulti = (Multipart)bodyPart.getContent();
+                            for (int j = 0; j < contentMulti.getCount(); j++){
+                                BodyPart subPart = contentMulti.getBodyPart(i);
+                                String subContentType = subPart.getContentType();
+                                System.out.println(subContentType);
+                                String encoding = "UTF-8";
+
+                                if(subContentType.matches("text/html.*")){
+                                    String bodyHtml = IOUtils.toString(MimeUtility.decode(subPart.getInputStream(), "quoted-printable"), encoding);
+                                    mockMail.setBodyHtml(bodyHtml);
+                                }
+                            }
+
                         }
                     }
                 }
