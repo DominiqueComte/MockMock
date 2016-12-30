@@ -63,22 +63,39 @@ public class MailViewHtmlBuilder implements HtmlBuilder
                     .append("    </div>\n");
         }
 
+        if(mockMail.getAttacheFileName() != null)
+        {
+            output.append(
+                    "    <div class=\"span10\" name=\"bodyPlainText\">\n" +
+                            "       <h3>Attachment</h3>\n" +
+                            "       <div class=\"well\"><a href=\"/attachment/" +mockMail.getId() + "\">" + StringEscapeUtils.escapeHtml(mockMail.getAttacheFileName()) + "</a></div>\n" +
+                            "    </div>\n");
+        }
+
         if(mockMail.getBodyHtml() != null)
         {
-            output.append("    <div class=\"span10\" name=\"bodyHTML_Unformatted\">\n")
-                    .append("       <h3>HTML body unformatted</h3>\n")
-                    .append("       <div class=\"well\">")
-                    .append(StringEscapeUtils.escapeHtml(mockMail.getBodyHtml()))
-                    .append("</div>\n")
-                    .append("    </div>\n");
-
             // also show a parsed version via an iframe
-            output.append("    <div class=\"span10\" name=\"iFrame\">\n" + "        <h3>HTML body formatted</h3>\n")
-                    .append("        <iframe class=\"well\" src=\"/view/html/")
-                    .append(mockMail.getId())
-                    .append("\" style=\"width: 780px; height: 700px; overflow: scroll;\" style=\"\" name=\"bodyHTML_iFrame\">\n")
-                    .append("        </iframe>\n")
-                    .append("    </div>");
+            output.append(
+                    "<script type=\"text/javascript\">\n" +
+                            " function SetCwinHeight(){\n" +
+                            "  var iframeid=document.getElementById(\"htmliframe\"); //iframe id\n" +
+                            "  if (document.getElementById){\n" +
+                            "   if (iframeid && !window.opera){\n" +
+                            "    if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){\n" +
+                            "     iframeid.height = iframeid.contentDocument.body.offsetHeight;\n" +
+                            "    }else if(iframeid.Document && iframeid.Document.body.scrollHeight){\n" +
+                            "     iframeid.height = iframeid.Document.body.scrollHeight;\n" +
+                            "    }\n" +
+                            "   }\n" +
+                            "  }\n" +
+                            " }\n" +
+                            "</script>")
+                    .append(
+                    "    <div class=\"span10\" name=\"iFrame\">\n" +
+                            "        <h3>HTML body formatted</h3>\n" +
+                            "        <iframe class=\"well\" id=\"htmliframe\" src=\"/view/html/" + mockMail.getId() + "\" style=\"width: 780px; height: 700px; overflow: scroll;\" style=\"\" name=\"bodyHTML_iFrame\">\n" +
+                            "        </iframe>\n" +
+                            "    </div>");
         }
 
 		// just output the raw mail so we're sure everything is on the screen
