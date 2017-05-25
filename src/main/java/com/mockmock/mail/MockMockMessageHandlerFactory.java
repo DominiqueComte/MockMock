@@ -21,7 +21,7 @@ import java.util.Properties;
 @Service
 public class MockMockMessageHandlerFactory implements MessageHandlerFactory
 {
-    private EventBus eventBus;
+    private final EventBus eventBus;
 	private Settings settings;
 
     @Autowired
@@ -57,7 +57,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
             this.mockMail = new MockMail();
 
             // give the mockmail a unique id (currently its just a timestamp in ms)
-            this.mockMail.setId(DateTime.now().getMillis());
+            this.mockMail.setId(System.nanoTime());
         }
 
         /**
