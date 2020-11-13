@@ -149,7 +149,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
                                 String encoding = "UTF-8";
 
                                 if(subContentType.matches("text/html.*")){
-                                    String originalBodyHtml = IOUtils.toString(subPart.getInputStream());
+                                    String originalBodyHtml = IOUtils.toString(subPart.getInputStream(), encoding);
                                     String replacedBodyHtml = originalBodyHtml.replaceAll("(?<!\\r)\\n", "\r\n");
                                     InputStream inputStream = MimeUtility.decode(IOUtils.toInputStream(replacedBodyHtml), "quoted-printable");
                                     String bodyHtml = IOUtils.toString(inputStream, encoding);
