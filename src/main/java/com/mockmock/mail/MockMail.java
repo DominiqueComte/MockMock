@@ -1,12 +1,14 @@
 package com.mockmock.mail;
 
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MockMail implements Comparable<MockMail>
 {
     private long id;
     private String from;
-    private String to;
+    private List<String> to = new ArrayList<String>();
     private String subject;
     private String body;
     private String bodyHtml;
@@ -36,12 +38,12 @@ public class MockMail implements Comparable<MockMail>
     
     public String getTo()
     {
-        return to;
+        return to.toString();
     }
 
     public void setTo(String to)
     {
-        this.to = to;
+        this.to.add(to);
     }
     
     public String getSubject() 
@@ -97,10 +99,10 @@ public class MockMail implements Comparable<MockMail>
     @Override
     public int compareTo(MockMail o)
     {
-        long receivedTime = this.getReceivedTime();
+        long receivedTime1 = this.getReceivedTime();
         long receivedTime2 = o.getReceivedTime();
 
-        long diff = receivedTime - receivedTime2;
+        long diff = receivedTime1 - receivedTime2;
         return (int) diff;
     }
 

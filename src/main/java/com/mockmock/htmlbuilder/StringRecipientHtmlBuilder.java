@@ -7,6 +7,7 @@ import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Arrays;
 
 public class StringRecipientHtmlBuilder implements HtmlBuilder
 {
@@ -40,7 +41,7 @@ public class StringRecipientHtmlBuilder implements HtmlBuilder
             {
                 if(recipientType == MimeMessage.RecipientType.TO)
                 {
-                    return mockMail.getTo();
+                    return Arrays.toString(mimeMessage.getRecipients(Message.RecipientType.TO));
                 }
                 return "";
             }
