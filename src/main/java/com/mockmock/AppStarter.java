@@ -3,14 +3,14 @@ package com.mockmock;
 import com.mockmock.console.Parser;
 import com.mockmock.server.Server;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class AppStarter
-{
+@SpringBootApplication
+public class AppStarter {
     public static final float VERSION_NUMBER = 1.4f;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         BeanFactory factory = new ClassPathXmlApplicationContext("META-INF/beans.xml");
 
         Settings settings = (Settings) factory.getBean("settings");
@@ -23,8 +23,13 @@ public class AppStarter
         smtpServer.setPort(settings.getSmtpPort());
         smtpServer.start();
 
+        Server webApiServer = (Server) factory.getBean("webApiServer");
+        webApiServer.setPort(settings.getWebApiPort());
+        webApiServer.start();
+
         Server httpServer = (Server) factory.getBean("httpServer");
         httpServer.setPort(settings.getHttpPort());
         httpServer.start();
+
     }
 }

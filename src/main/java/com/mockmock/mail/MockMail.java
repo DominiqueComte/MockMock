@@ -2,8 +2,7 @@ package com.mockmock.mail;
 
 import javax.mail.internet.MimeMessage;
 
-public class MockMail implements Comparable<MockMail>
-{
+public class MockMail implements Comparable<MockMail> {
     private long id;
     private String from;
     private String to;
@@ -14,89 +13,72 @@ public class MockMail implements Comparable<MockMail>
     private MimeMessage mimeMessage;
     private long receivedTime;
 
-    public long getId()
-    {
+    public long getId() {
         return id;
     }
 
-    public void setId(long id)
-    {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getFrom()
-    {
+    public String getFrom() {
         return from;
     }
-    
-    public void setFrom(String from)
-    {
+
+    public void setFrom(String from) {
         this.from = from;
     }
-    
-    public String getTo()
-    {
+
+    public String getTo() {
         return to;
     }
 
-    public void setTo(String to)
-    {
+    public void setTo(String to) {
         this.to = to;
     }
-    
-    public String getSubject() 
-    {
+
+    public String getSubject() {
         return subject;
     }
-    
-    public void setSubject(String subject)
-    {
+
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 
-    public String getBody()
-    {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(String body)
-    {
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public String getRawMail()
-    {
+    public String getRawMail() {
         return rawMail;
     }
 
-    public void setRawMail(String rawMail)
-    {
+    public void setRawMail(String rawMail) {
         this.rawMail = rawMail;
     }
 
-    public String getBodyHtml() 
-    {
+    public String getBodyHtml() {
         return bodyHtml;
     }
 
-    public void setBodyHtml(String bodyHtml) 
-    {
+    public void setBodyHtml(String bodyHtml) {
         this.bodyHtml = bodyHtml;
     }
 
-    public MimeMessage getMimeMessage()
-    {
+    public MimeMessage getMimeMessage() {
         return mimeMessage;
     }
 
-    public void setMimeMessage(MimeMessage mimeMessage)
-    {
+    public void setMimeMessage(MimeMessage mimeMessage) {
         this.mimeMessage = mimeMessage;
     }
 
     @Override
-    public int compareTo(MockMail o)
-    {
+    public int compareTo(MockMail o) {
         long receivedTime = this.getReceivedTime();
         long receivedTime2 = o.getReceivedTime();
 
@@ -104,13 +86,11 @@ public class MockMail implements Comparable<MockMail>
         return (int) diff;
     }
 
-    public long getReceivedTime()
-    {
+    public long getReceivedTime() {
         return receivedTime;
     }
 
-    public void setReceivedTime(long receivedTime)
-    {
+    public void setReceivedTime(long receivedTime) {
         this.receivedTime = receivedTime;
     }
 }

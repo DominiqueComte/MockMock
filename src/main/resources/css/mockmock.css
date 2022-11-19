@@ -9,3 +9,7 @@ small.deleteLink {
 div[name=bodyPlainText] div.well, div[name=rawOutput] div.well, div[name=bodyHTML_Unformatted] div.well {
     white-space: pre-line;
 }
+
+.container.content {
+    margin-top: 40px;
+}

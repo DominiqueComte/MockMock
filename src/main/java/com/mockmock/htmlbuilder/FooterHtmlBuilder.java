@@ -7,40 +7,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-public class FooterHtmlBuilder implements HtmlBuilder
-{
+public class FooterHtmlBuilder implements HtmlBuilder {
 	private Settings settings;
 
-    @Autowired
-    public void setSettings(Settings settings)
-    {
-        this.settings = settings;
-    }
+	@Autowired
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
 
-    public String build()
-    {
-    	String output = "";
-    	Util util = new Util();
+	public String build() {
+		String output = "";
+		Util util = new Util();
 
-    	if(settings.getStaticFolderPath() != null)
-    	{
-	    	output +=
-	                "  <script src=\"/js/jquery-1.8.1.min.js\"></script>\n" +
-	                "  <script src=\"/js/bootstrap.min.js\"></script>\n" +
-	                "  <script src=\"/js/mockmock.js\"></script>\n";
-    	}
-    	else
-    	{
-    		output +=
-    				"  <script>\n" + util.getFile("/js/jquery-1.8.1.min.js") + "</script>\n" +
-    				"  <script>\n" + util.getFile("/js/bootstrap.min.js") + "</script>\n" +
-    				"  <script>\n" + util.getFile("/js/mockmock.js") + "</script>\n";
-    	}
+		if (settings.getStaticFolderPath() != null) {
+			output += "  <script src=\"/js/jquery-1.8.1.min.js\"></script>\n"
+					+ "  <script src=\"/js/bootstrap.min.js\"></script>\n"
+					+ "  <script src=\"/js/mockmock.js\"></script>\n"
+					+ "  <script src=\"/js/clipboard.min.js\"></script>\n";
+		} else {
+			output += "  <script>\n" + util.getFile("/js/jquery-1.8.1.min.js") + "</script>\n" + "  <script>\n"
+					+ util.getFile("/js/bootstrap.min.js") + "</script>\n" + "  <script>\n"
+					+ util.getFile("/js/mockmock.js") + "</script>\n" + "  <script>\n"
+					+ util.getFile("/js/clipboard.min.js") + "</script>\n";
+		}
 
-    	output +=
-                "  </body>\n" +
-                "</html>\n";
+		output += " <script>\n" + "   new ClipboardJS('.btn');\n" + " </script>\n";
 
-    	return output;
-    }
+		output += "  </body>\n" + "</html>\n";
+
+		return output;
+	}
 }

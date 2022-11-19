@@ -23,6 +23,7 @@ public class HttpServer implements com.mockmock.server.Server
     private MailDetailHtmlHandler mailDetailHtmlHandler;
     private MailDeleteHandler mailDeleteHandler;
     private DeleteHandler deleteHandler;
+    private MailForwardHandler mailForwardHandler;
 
     public void setPort(int port)
     {
@@ -61,7 +62,8 @@ public class HttpServer implements com.mockmock.server.Server
 			this.mailDetailHandler,
 			this.mailDetailHtmlHandler,
 			this.mailDeleteHandler,
-			this.deleteHandler,
+            this.deleteHandler,
+            this.mailForwardHandler,
 			resourceHandler
         };
         HandlerList handlerList = new HandlerList();
@@ -104,6 +106,12 @@ public class HttpServer implements com.mockmock.server.Server
     public void setDeleteHandler(DeleteHandler deleteHandler) {
         this.deleteHandler = deleteHandler;
     }
+
+	@Autowired
+	public void setMailForwardHandler(MailForwardHandler mailForwardHandler) {
+		this.mailForwardHandler = mailForwardHandler;
+	}
+
 
     @Autowired
     public void setSettings(Settings settings) {
