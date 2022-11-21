@@ -6,32 +6,32 @@ import org.junit.Test;
 
 public class MailQueueTest
 {
-	@Test
-	public void testEmptyQueue()
-	{
-		MockMail mail = new MockMail();
-		MailQueue mailQueue = new MailQueue();
-		mailQueue.setSettings(new Settings());
-		mailQueue.add(mail);
-		Assert.assertFalse(mailQueue.getMailQueue().isEmpty());
+    @Test
+    public void testEmptyQueue()
+    {
+        MockMail mail = new MockMail();
+        MailQueue mailQueue = new MailQueue();
+        mailQueue.setSettings(new Settings());
+        mailQueue.add(mail);
+        Assert.assertFalse(mailQueue.getMailQueue().isEmpty());
 
-		mailQueue.emptyQueue();
-		Assert.assertTrue(mailQueue.getMailQueue().isEmpty());
-	}
+        mailQueue.emptyQueue();
+        Assert.assertTrue(mailQueue.getMailQueue().isEmpty());
+    }
 
-	@Test
-	public void testDeleteMailFromQueue()
-	{
-		MockMail mail = new MockMail();
-		mail.setId(1337);
-		MailQueue mailQueue = new MailQueue();
-		mailQueue.setSettings(new Settings());
-		mailQueue.add(mail);
-		Assert.assertFalse(mailQueue.getMailQueue().isEmpty());
+    @Test
+    public void testDeleteMailFromQueue()
+    {
+        MockMail mail = new MockMail();
+        mail.setId(1337);
+        MailQueue mailQueue = new MailQueue();
+        mailQueue.setSettings(new Settings());
+        mailQueue.add(mail);
+        Assert.assertFalse(mailQueue.getMailQueue().isEmpty());
 
-		mailQueue.deleteById(mail.getId());
-		Assert.assertTrue(mailQueue.getMailQueue().isEmpty());
-	}
+        mailQueue.deleteById(mail.getId());
+        Assert.assertTrue(mailQueue.getMailQueue().isEmpty());
+    }
 
     @Test
     public void testAdd()
@@ -43,7 +43,7 @@ public class MailQueueTest
         MockMail mail = new MockMail();
         mailQueue.add(mail);
 
-        Assert.assertTrue(mailQueue.getMailQueue().size() == 1);
+        Assert.assertEquals(1, mailQueue.getMailQueue().size());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class MailQueueTest
             mailQueue.add(mail);
         }
 
-        Assert.assertTrue(mailQueue.getMailQueue().size() == settings.getMaxMailQueueSize());
+        Assert.assertEquals(mailQueue.getMailQueue().size(), settings.getMaxMailQueueSize());
 
         for (int i = 0; i < 10; i++)
         {
@@ -68,7 +68,7 @@ public class MailQueueTest
             mailQueue.add(mail);
         }
 
-        Assert.assertTrue(mailQueue.getMailQueue().size() == settings.getMaxMailQueueSize());
+        Assert.assertEquals(mailQueue.getMailQueue().size(), settings.getMaxMailQueueSize());
     }
 
     @Test

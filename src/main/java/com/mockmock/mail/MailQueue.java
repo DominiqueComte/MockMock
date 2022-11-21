@@ -12,7 +12,7 @@ import java.util.ListIterator;
 @Service
 public class MailQueue
 {
-    private static ArrayList<MockMail> mailQueue = new ArrayList<>();
+    private static final ArrayList<MockMail> mailQueue = new ArrayList<>();
 
     private Settings settings;
 
@@ -78,24 +78,24 @@ public class MailQueue
         mailQueue.trimToSize();
     }
 
-	/**
-	 * Removes the mail with the given id from the queue
-	 * @param id long
-	 * @return boolean
-	 */
-	public boolean deleteById(long id)
-	{
-		for(MockMail mockMail : mailQueue)
-		{
-			if(mockMail.getId() == id)
-			{
-				mailQueue.remove(mailQueue.indexOf(mockMail));
-				return true;
-			}
-		}
+    /**
+     * Removes the mail with the given id from the queue
+     * @param id long
+     * @return boolean
+     */
+    public boolean deleteById(long id)
+    {
+        for(MockMail mockMail : mailQueue)
+        {
+            if(mockMail.getId() == id)
+            {
+                mailQueue.remove(mockMail);
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
     /**
      * Trims the mail queue so there aren't too many mails in it.

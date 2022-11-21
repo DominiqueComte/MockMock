@@ -43,7 +43,7 @@ do_start()
        echo
        echo $PID > ${PIDFILE}
     fi
-	return "$RETVAL"
+    return "$RETVAL"
 }
 
 #
@@ -51,38 +51,38 @@ do_start()
 #
 do_stop()
 {
-	killproc -p ${PIDFILE}
-	RETVAL="$?"
-	if [ "$RETVAL" -ne 0 ]; then
-	    echo -n "Could not stop mockmock with pid file ${PIDFILE}." && error
+    killproc -p ${PIDFILE}
+    RETVAL="$?"
+    if [ "$RETVAL" -ne 0 ]; then
+        echo -n "Could not stop mockmock with pid file ${PIDFILE}." && error
             return "$RETVAL"
-	fi
+    fi
 
-	# Many daemons don't delete their pidfiles when they exit.
-	rm -f ${PIDFILE}
-	echo "Stopping mockmock."
-	return "$RETVAL"
+    # Many daemons don't delete their pidfiles when they exit.
+    rm -f ${PIDFILE}
+    echo "Stopping mockmock."
+    return "$RETVAL"
 }
 
 case "$1" in
   start)
-	do_start
-	;;
+    do_start
+    ;;
   stop)
-	do_stop
-	;;
+    do_stop
+    ;;
   status)
     status -p $PIDFILE
     ;;
   restart|force-reload)
-	do_stop
-	do_start
-	;;
+    do_stop
+    do_start
+    ;;
   *)
-	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
-	echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
-	exit 3
-	;;
+    #echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+    echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+    exit 3
+    ;;
 esac
 
 :

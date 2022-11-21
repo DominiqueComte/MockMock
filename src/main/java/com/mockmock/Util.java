@@ -7,37 +7,37 @@ import java.io.InputStreamReader;
 
 public class Util
 {
-  	public String getFile(String fileName)
-  	{
-  		InputStream in;
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
+    public String getFile(String fileName)
+    {
+        InputStream in;
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
 
-		String line;
+        String line;
 
-		try
-		{
-			in = getClass().getResourceAsStream(fileName);
-			br = new BufferedReader(new InputStreamReader(in));
+        try
+        {
+            in = getClass().getResourceAsStream(fileName);
+            br = new BufferedReader(new InputStreamReader(in));
 
-			while ((line = br.readLine()) != null)
-			{
-				sb.append(line);
-			}
+            while ((line = br.readLine()) != null)
+            {
+                sb.append(line);
+            }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally
-		{
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally
+        {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		return sb.toString();
-  	}
+        return sb.toString();
+    }
 }

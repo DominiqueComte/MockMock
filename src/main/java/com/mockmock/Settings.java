@@ -28,14 +28,14 @@ public class Settings
      */
     private int maxMailQueueSize = 1000;
 
-	/**
-	 * A set of "From" email addresses to filter
-	 */
+    /**
+     * A set of "From" email addresses to filter
+     */
     private Set<String> filterFromEmailAddresses = new HashSet<>();
 
-	/**
-	 * A set of "To" email addresses to filter
-	 */
+    /**
+     * A set of "To" email addresses to filter
+     */
     private Set<String> filterToEmailAddresses = new HashSet<>();
 
     /**
@@ -78,21 +78,21 @@ public class Settings
         this.maxMailQueueSize = maxMailQueueSize;
     }
 
-	public Set<String> getFilterFromEmailAddresses() {
-		return filterFromEmailAddresses;
-	}
+    public Set<String> getFilterFromEmailAddresses() {
+        return filterFromEmailAddresses;
+    }
 
-	public void setFilterFromEmailAddresses(Set<String> filterFromEmailAddresses) {
-		this.filterFromEmailAddresses = filterFromEmailAddresses;
-	}
+    public void setFilterFromEmailAddresses(Set<String> filterFromEmailAddresses) {
+        this.filterFromEmailAddresses = filterFromEmailAddresses;
+    }
 
-	public Set<String> getFilterToEmailAddresses() {
-		return filterToEmailAddresses;
-	}
+    public Set<String> getFilterToEmailAddresses() {
+        return filterToEmailAddresses;
+    }
 
-	public void setFilterToEmailAddresses(Set<String> filterToEmailAddresses) {
-		this.filterToEmailAddresses = filterToEmailAddresses;
-	}
+    public void setFilterToEmailAddresses(Set<String> filterToEmailAddresses) {
+        this.filterToEmailAddresses = filterToEmailAddresses;
+    }
 
     public String getStaticFolderPath() {
         return staticFolderPath;

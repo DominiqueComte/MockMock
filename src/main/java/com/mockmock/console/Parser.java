@@ -46,8 +46,8 @@ public class Parser
             parseSmtpPortOption(cmd, settings);
             parseHttpPortOption(cmd, settings);
             parseMailQueueSizeOption(cmd, settings);
-			parseFilterFromEmailAddressesOption(cmd, settings);
-			parseFilterToEmailAddressesOption(cmd, settings);
+            parseFilterFromEmailAddressesOption(cmd, settings);
+            parseFilterToEmailAddressesOption(cmd, settings);
             parseStaticFolderOption(cmd, settings);
         }
         catch (ParseException e)
@@ -111,25 +111,25 @@ public class Parser
         }
     }
 
-	protected void parseFilterFromEmailAddressesOption(CommandLine cmd, Settings settings)
-	{
-		if(cmd.hasOption("f"))
-		{
-			String input = cmd.getOptionValue("f");
-			String[] emailAddresses = input.split(",");
-			settings.setFilterFromEmailAddresses(new HashSet<>(Arrays.asList(emailAddresses)));
-		}
-	}
+    protected void parseFilterFromEmailAddressesOption(CommandLine cmd, Settings settings)
+    {
+        if(cmd.hasOption("f"))
+        {
+            String input = cmd.getOptionValue("f");
+            String[] emailAddresses = input.split(",");
+            settings.setFilterFromEmailAddresses(new HashSet<>(Arrays.asList(emailAddresses)));
+        }
+    }
 
-	protected void parseFilterToEmailAddressesOption(CommandLine cmd, Settings settings)
-	{
-		if(cmd.hasOption("t"))
-		{
-			String input = cmd.getOptionValue("t");
-			String[] emailAddresses = input.split(",");
-			settings.setFilterToEmailAddresses(new HashSet<>(Arrays.asList(emailAddresses)));
-		}
-	}
+    protected void parseFilterToEmailAddressesOption(CommandLine cmd, Settings settings)
+    {
+        if(cmd.hasOption("t"))
+        {
+            String input = cmd.getOptionValue("t");
+            String[] emailAddresses = input.split(",");
+            settings.setFilterToEmailAddresses(new HashSet<>(Arrays.asList(emailAddresses)));
+        }
+    }
 
     protected void parseStaticFolderOption(CommandLine cmd, Settings settings)
     {

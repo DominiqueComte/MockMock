@@ -34,7 +34,7 @@ SCRIPTNAME=/etc/init.d/$NAME
 #
 do_start()
 {
-	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --exec /usr/bin/java -- -jar $DAEMON $DAEMON_ARGS
+    start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --exec /usr/bin/java -- -jar $DAEMON $DAEMON_ARGS
 }
 
 #
@@ -42,72 +42,72 @@ do_start()
 #
 do_stop()
 {
-	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
-	RETVAL="$?"
-	[ "$RETVAL" = 2 ] && return 2
-	start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --exec $DAEMON
-	[ "$?" = 2 ] && return 2
-	# Many daemons don't delete their pidfiles when they exit.
-	rm -f $PIDFILE
-	return "$RETVAL"
+    start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
+    RETVAL="$?"
+    [ "$RETVAL" = 2 ] && return 2
+    start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --exec $DAEMON
+    [ "$?" = 2 ] && return 2
+    # Many daemons don't delete their pidfiles when they exit.
+    rm -f $PIDFILE
+    return "$RETVAL"
 }
 
 case "$1" in
   start)
-	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
-	do_start
-	case "$?" in
-		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
-	esac
-	;;
+    [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+    do_start
+    case "$?" in
+        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
   stop)
-	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
-	do_stop
-	case "$?" in
-		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
-	esac
-	;;
+    [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+    do_stop
+    case "$?" in
+        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
   status)
        status_of_proc -p "$PIDFILE" && exit 0 || exit $?
        ;;
   #reload|force-reload)
-	#
-	# If do_reload() is not implemented then leave this commented out
-	# and leave 'force-reload' as an alias for 'restart'.
-	#
-	#log_daemon_msg "Reloading $DESC" "$NAME"
-	#do_reload
-	#log_end_msg $?
-	#;;
+    #
+    # If do_reload() is not implemented then leave this commented out
+    # and leave 'force-reload' as an alias for 'restart'.
+    #
+    #log_daemon_msg "Reloading $DESC" "$NAME"
+    #do_reload
+    #log_end_msg $?
+    #;;
   restart|force-reload)
-	#
-	# If the "reload" option is implemented then remove the
-	# 'force-reload' alias
-	#
-	log_daemon_msg "Restarting $DESC" "$NAME"
-	do_stop
-	case "$?" in
-	  0|1)
-		do_start
-		case "$?" in
-			0) log_end_msg 0 ;;
-			1) log_end_msg 1 ;; # Old process is still running
-			*) log_end_msg 1 ;; # Failed to start
-		esac
-		;;
-	  *)
-	  	# Failed to stop
-		log_end_msg 1
-		;;
-	esac
-	;;
+    #
+    # If the "reload" option is implemented then remove the
+    # 'force-reload' alias
+    #
+    log_daemon_msg "Restarting $DESC" "$NAME"
+    do_stop
+    case "$?" in
+      0|1)
+        do_start
+        case "$?" in
+            0) log_end_msg 0 ;;
+            1) log_end_msg 1 ;; # Old process is still running
+            *) log_end_msg 1 ;; # Failed to start
+        esac
+        ;;
+      *)
+          # Failed to stop
+        log_end_msg 1
+        ;;
+    esac
+    ;;
   *)
-	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
-	echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
-	exit 3
-	;;
+    #echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+    echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+    exit 3
+    ;;
 esac
 
 :

@@ -18,34 +18,34 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteHandlerTest {
 
-	private DeleteHandler handler;
+    private DeleteHandler handler;
 
-	@Mock
-	MailQueue queue;
-	@Mock
-	Request request;
-	@Mock
-	HttpServletRequest httpServletRequest;
-	@Mock
-	HttpServletResponse httpServletResponse;
+    @Mock
+    MailQueue queue;
+    @Mock
+    Request request;
+    @Mock
+    HttpServletRequest httpServletRequest;
+    @Mock
+    HttpServletResponse httpServletResponse;
 
-	@Before
-	public void setUp() {
-		handler = new DeleteHandler();
-		handler.setMailQueue(queue);
-	}
+    @Before
+    public void setUp() {
+        handler = new DeleteHandler();
+        handler.setMailQueue(queue);
+    }
 
-	@Test
-	public void handle_delete_all() throws ServletException, IOException {
-		doNothing().when(queue).emptyQueue();
-		handler.handle("/mail/delete/all", request, httpServletRequest, httpServletResponse);
-		verify(queue, times(1)).emptyQueue();
-	}
+    @Test
+    public void handle_delete_all() throws ServletException, IOException {
+        doNothing().when(queue).emptyQueue();
+        handler.handle("/mail/delete/all", request, httpServletRequest, httpServletResponse);
+        verify(queue, times(1)).emptyQueue();
+    }
 
-	@Test
-	public void handle_delete_nothing() throws ServletException, IOException {
-		handler.handle("/mail/delete/nothing", request, httpServletRequest, httpServletResponse);
-		verify(queue, times(0)).emptyQueue();
-	}
+    @Test
+    public void handle_delete_nothing() throws ServletException, IOException {
+        handler.handle("/mail/delete/nothing", request, httpServletRequest, httpServletResponse);
+        verify(queue, times(0)).emptyQueue();
+    }
 
 }

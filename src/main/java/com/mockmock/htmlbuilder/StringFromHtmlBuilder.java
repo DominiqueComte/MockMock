@@ -16,10 +16,10 @@ public class StringFromHtmlBuilder implements HtmlBuilder
         StringBuilder output = new StringBuilder();
         MimeMessage mimeMessage = mockMail.getMimeMessage();
 
-		if(mimeMessage == null)
-		{
-			return output.toString();
-		}
+        if(mimeMessage == null)
+        {
+            return output.toString();
+        }
 
         try
         {

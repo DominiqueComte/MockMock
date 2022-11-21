@@ -22,7 +22,7 @@ import java.util.Properties;
 public class MockMockMessageHandlerFactory implements MessageHandlerFactory
 {
     private final EventBus eventBus;
-	private Settings settings;
+    private Settings settings;
 
     @Autowired
     public MockMockMessageHandlerFactory(EventBus eventBus)
@@ -30,13 +30,13 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
         this.eventBus = eventBus;
     }
 
-	@Autowired
-	public void setSettings(Settings settings)
-	{
-		this.settings = settings;
-	}
+    @Autowired
+    public void setSettings(Settings settings)
+    {
+        this.settings = settings;
+    }
 
-	@Override
+    @Override
     public MessageHandler create(MessageContext messageContext)
     {
         return new MockMockHandler(messageContext);
@@ -172,19 +172,19 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
         @Override
         public void done()
         {
-			// check if this email's "from" address matches one in the filtered list
-			if(settings.getFilterFromEmailAddresses().contains(mockMail.getFrom()))
-			{
-				System.out.println("Skipping email, because From address '" + mockMail.getFrom() + "' matches filter");
-				return;
-			}
+            // check if this email's "from" address matches one in the filtered list
+            if(settings.getFilterFromEmailAddresses().contains(mockMail.getFrom()))
+            {
+                System.out.println("Skipping email, because From address '" + mockMail.getFrom() + "' matches filter");
+                return;
+            }
 
-			// check if this email's "to" address matches one in the filtered list
-			if(settings.getFilterToEmailAddresses().contains(mockMail.getTo()))
-			{
-				System.out.println("Skipping email, because To address '" + mockMail.getTo() + "' matches filter");
-				return;
-			}
+            // check if this email's "to" address matches one in the filtered list
+            if(settings.getFilterToEmailAddresses().contains(mockMail.getTo()))
+            {
+                System.out.println("Skipping email, because To address '" + mockMail.getTo() + "' matches filter");
+                return;
+            }
 
             // set the received date
             mockMail.setReceivedTime(DateTime.now().getMillis());

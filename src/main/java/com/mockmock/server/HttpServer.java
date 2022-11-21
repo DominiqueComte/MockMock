@@ -57,12 +57,12 @@ public class HttpServer implements com.mockmock.server.Server
         resourceHandler.setResourceBase(path);
 
         Handler[] handlers = {
-			this.indexHandler,
-			this.mailDetailHandler,
-			this.mailDetailHtmlHandler,
-			this.mailDeleteHandler,
-			this.deleteHandler,
-			resourceHandler
+            this.indexHandler,
+            this.mailDetailHandler,
+            this.mailDetailHtmlHandler,
+            this.mailDeleteHandler,
+            this.deleteHandler,
+            resourceHandler
         };
         HandlerList handlerList = new HandlerList();
         handlerList.setHandlers(handlers);
@@ -85,20 +85,20 @@ public class HttpServer implements com.mockmock.server.Server
         this.indexHandler = indexHandler;
     }
 
-	@Autowired
-	public void setMailDetailHandler(MailDetailHandler mailDetailHandler) {
-		this.mailDetailHandler = mailDetailHandler;
-	}
+    @Autowired
+    public void setMailDetailHandler(MailDetailHandler mailDetailHandler) {
+        this.mailDetailHandler = mailDetailHandler;
+    }
 
-	@Autowired
-	public void setMailDetailHtmlHandler(MailDetailHtmlHandler mailDetailHtmlHandler) {
-		this.mailDetailHtmlHandler = mailDetailHtmlHandler;
-	}
+    @Autowired
+    public void setMailDetailHtmlHandler(MailDetailHtmlHandler mailDetailHtmlHandler) {
+        this.mailDetailHtmlHandler = mailDetailHtmlHandler;
+    }
 
-	@Autowired
-	public void setMailDeleteHandler(MailDeleteHandler mailDeleteHandler) {
-		this.mailDeleteHandler = mailDeleteHandler;
-	}
+    @Autowired
+    public void setMailDeleteHandler(MailDeleteHandler mailDeleteHandler) {
+        this.mailDeleteHandler = mailDeleteHandler;
+    }
 
     @Autowired
     public void setDeleteHandler(DeleteHandler deleteHandler) {

@@ -34,7 +34,7 @@ public class MailViewHtmlBuilder implements HtmlBuilder
             subjectOutput = StringEscapeUtils.escapeHtml(mockMail.getSubject());
         }
 
-		subjectOutput += " <small class=\"deleteLink\"><a href=\"/delete/" + mockMail.getId() + "\">Delete</a></small>";
+        subjectOutput += " <small class=\"deleteLink\"><a href=\"/delete/" + mockMail.getId() + "\">Delete</a></small>";
 
         StringBuilder output = new StringBuilder("<div class=\"container\">\n");
 
@@ -81,17 +81,17 @@ public class MailViewHtmlBuilder implements HtmlBuilder
                     .append("    </div>");
         }
 
-		// just output the raw mail so we're sure everything is on the screen
-		if(mockMail.getRawMail() != null)
-		{
-			// output complete raw mail
-			output.append("    <div class=\"span10\" name=\"rawOutput\">\n")
+        // just output the raw mail so we're sure everything is on the screen
+        if(mockMail.getRawMail() != null)
+        {
+            // output complete raw mail
+            output.append("    <div class=\"span10\" name=\"rawOutput\">\n")
                     .append("       <h3>Complete raw mail output</h3>\n")
                     .append("       <div class=\"well\">")
                     .append(StringEscapeUtils.escapeHtml(mockMail.getRawMail()))
                     .append("</div>\n")
                     .append("    </div>\n");
-		}
+        }
 
         output.append("  </div>\n")
                 .append("</div>\n");

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @Service
 public class MailDetailHtmlHandler extends BaseHandler
 {
-    private String pattern = "^/view/html/([0-9]+)/?$";
+    private static final String pattern = "^/view/html/([0-9]+)/?$";
 
     private MailQueue mailQueue;
 
@@ -40,10 +40,10 @@ public class MailDetailHtmlHandler extends BaseHandler
             return;
         }
 
-		if(mockMail.getBodyHtml() == null)
-		{
-			return;
-		}
+        if(mockMail.getBodyHtml() == null)
+        {
+            return;
+        }
 
         setDefaultResponseOptions(response);
 
