@@ -101,7 +101,6 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
          * Called when the DATA part of the SMTP exchange begins.
          * @param data InputStream
          * @throws RejectException never
-         * @throws IOException if there is a problem getting the message contents
          */
         @Override
         public void data(InputStream data) throws RejectException
@@ -156,9 +155,9 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
                     }
                 }
             }
-            catch (Exception e)
+            catch (MessagingException | IOException e)
             {
-                mockMail.setFail("messageException");
+                mockMail.setFail(e.getClass().getSimpleName() + ": " + e.getMessage());
             }
 
             if(settings.getShowEmailInConsole())
@@ -222,7 +221,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
             }
             catch (IOException e)
             {
-                throw new MessagingException();
+                throw new MessagingException("Error while converting email", e);
             }
 
             return stringBuilder.toString();
