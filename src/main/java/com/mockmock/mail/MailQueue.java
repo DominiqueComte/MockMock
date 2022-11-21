@@ -12,7 +12,7 @@ import java.util.ListIterator;
 @Service
 public class MailQueue
 {
-    private static final ArrayList<MockMail> mailQueue = new ArrayList<>();
+    private static final ArrayList<MockMail> MAIL_QUEUE = new ArrayList<>();
 
     private Settings settings;
 
@@ -23,9 +23,9 @@ public class MailQueue
     @Subscribe
     public void add(MockMail mail)
     {
-        mailQueue.add(mail);
-        Collections.sort(mailQueue);
-        Collections.reverse(mailQueue);
+        MAIL_QUEUE.add(mail);
+        Collections.sort(MAIL_QUEUE);
+        Collections.reverse(MAIL_QUEUE);
 
         trimQueue();
     }
@@ -35,7 +35,7 @@ public class MailQueue
      */
     public ArrayList<MockMail> getMailQueue()
     {
-        return mailQueue;
+        return MAIL_QUEUE;
     }
 
     /**
@@ -45,7 +45,7 @@ public class MailQueue
      */
     public MockMail getById(long id)
     {
-        for(MockMail mockMail : mailQueue)
+        for(MockMail mockMail : MAIL_QUEUE)
         {
             if(mockMail.getId() == id)
             {
@@ -63,10 +63,10 @@ public class MailQueue
      */
     public MockMail getLastSendMail()
     {
-        if (mailQueue.size() == 0)
+        if (MAIL_QUEUE.size() == 0)
             return null;
 
-        return mailQueue.get(0);
+        return MAIL_QUEUE.get(0);
     }
 
     /**
@@ -74,8 +74,8 @@ public class MailQueue
      */
     public void emptyQueue()
     {
-        mailQueue.clear();
-        mailQueue.trimToSize();
+        MAIL_QUEUE.clear();
+        MAIL_QUEUE.trimToSize();
     }
 
     /**
@@ -85,11 +85,11 @@ public class MailQueue
      */
     public boolean deleteById(long id)
     {
-        for(MockMail mockMail : mailQueue)
+        for(MockMail mockMail : MAIL_QUEUE)
         {
             if(mockMail.getId() == id)
             {
-                mailQueue.remove(mockMail);
+                MAIL_QUEUE.remove(mockMail);
                 return true;
             }
         }
@@ -102,13 +102,13 @@ public class MailQueue
      */
     private void trimQueue()
     {
-        if(mailQueue.size() > settings.getMaxMailQueueSize())
+        if(MAIL_QUEUE.size() > settings.getMaxMailQueueSize())
         {
-            for (ListIterator<MockMail> iter = mailQueue.listIterator(mailQueue.size()); iter.hasPrevious();)
+            for (ListIterator<MockMail> iter = MAIL_QUEUE.listIterator(MAIL_QUEUE.size()); iter.hasPrevious();)
             {
                 iter.previous();
 
-                if(mailQueue.size() <= settings.getMaxMailQueueSize())
+                if(MAIL_QUEUE.size() <= settings.getMaxMailQueueSize())
                 {
                     break;
                 }
@@ -119,7 +119,7 @@ public class MailQueue
             }
         }
 
-        mailQueue.trimToSize();
+        MAIL_QUEUE.trimToSize();
     }
 
     @Autowired

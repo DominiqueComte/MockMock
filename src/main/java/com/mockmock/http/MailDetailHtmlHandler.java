@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @Service
 public class MailDetailHtmlHandler extends BaseHandler
 {
-    private static final String pattern = "^/view/html/([0-9]+)/?$";
+    private static final String PATTERN = "^/view/html/([0-9]+)/?$";
 
     private MailQueue mailQueue;
 
@@ -59,7 +59,7 @@ public class MailDetailHtmlHandler extends BaseHandler
      */
     private boolean isMatch(String target)
     {
-        return target.matches(pattern);
+        return target.matches(PATTERN);
     }
 
     /**
@@ -69,7 +69,7 @@ public class MailDetailHtmlHandler extends BaseHandler
      */
     private long getMailId(String target)
     {
-        Pattern compiledPattern = Pattern.compile(pattern);
+        Pattern compiledPattern = Pattern.compile(PATTERN);
 
         Matcher matcher = compiledPattern.matcher(target);
         if(matcher.find())
