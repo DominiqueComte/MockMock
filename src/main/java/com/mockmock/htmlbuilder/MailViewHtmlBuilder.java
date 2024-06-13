@@ -34,7 +34,7 @@ public class MailViewHtmlBuilder implements HtmlBuilder
             subjectOutput = StringEscapeUtils.escapeHtml(mockMail.getSubject());
         }
 
-		subjectOutput += " <small class=\"deleteLink\"><a href=\"/delete/" + mockMail.getId() + "\">Delete</a></small>";
+        subjectOutput += " <small class=\"deleteLink\"><a href=\"/delete/" + mockMail.getId() + "\">Delete</a></small>";
 
         StringBuilder output = new StringBuilder("<div class=\"container\">\n");
 
@@ -57,41 +57,55 @@ public class MailViewHtmlBuilder implements HtmlBuilder
         {
             output.append("    <div class=\"span10\" name=\"bodyPlainText\">\n")
                     .append("       <h3>Plain text body</h3>\n")
-                    .append("       <div class=\"well\">")
-                    .append(StringEscapeUtils.escapeHtml(mockMail.getBody()))
-                    .append("</div>\n")
+                    .append("       <div class=\"well\">").append(StringEscapeUtils.escapeHtml(mockMail.getBody())).append("</div>\n")
                     .append("    </div>\n");
+        }
+
+        if(mockMail.getAttacheFileName() != null)
+        {
+            output.append("    <div class=\"span10\" name=\"bodyPlainText\">\n")
+                  .append("       <h3>Attachment</h3>\n")
+                  .append("       <div class=\"well\"><a href=\"/attachment/").append(mockMail.getId()).append("\">").append(StringEscapeUtils.escapeHtml(mockMail.getAttacheFileName())).append("</a></div>\n")
+                  .append("    </div>\n");
         }
 
         if(mockMail.getBodyHtml() != null)
         {
-            output.append("    <div class=\"span10\" name=\"bodyHTML_Unformatted\">\n")
-                    .append("       <h3>HTML body unformatted</h3>\n")
-                    .append("       <div class=\"well\">")
-                    .append(StringEscapeUtils.escapeHtml(mockMail.getBodyHtml()))
-                    .append("</div>\n")
-                    .append("    </div>\n");
-
             // also show a parsed version via an iframe
-            output.append("    <div class=\"span10\" name=\"iFrame\">\n" + "        <h3>HTML body formatted</h3>\n")
-                    .append("        <iframe class=\"well\" src=\"/view/html/")
-                    .append(mockMail.getId())
-                    .append("\" style=\"width: 780px; height: 700px; overflow: scroll;\" style=\"\" name=\"bodyHTML_iFrame\">\n")
+            output.append("    <script type=\"text/javascript\">\n")
+                    .append("     function SetCwinHeight(){\n")
+                    .append("      var iframeid=document.getElementById(\"htmliframe\"); //iframe id\n")
+                    .append("      if (document.getElementById){\n")
+                    .append("       if (iframeid && !window.opera){\n")
+                    .append("        if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){\n")
+                    .append("         iframeid.height = iframeid.contentDocument.body.offsetHeight + 40;\n")
+                    .append("        }else if(iframeid.Document && iframeid.Document.body.scrollHeight){\n")
+                    .append("         iframeid.height = iframeid.Document.body.scrollHeight + 40;\n")
+                    .append("        }\n")
+                    .append("       }\n")
+                    .append("      }\n")
+                    .append("     }\n")
+                    .append("    </script>")
+                    .append("    <div class=\"span10\" name=\"iFrame\">\n")
+                    .append("        <h3>HTML body formatted</h3>\n")
+                    .append("        <div>\n")
+                    .append("        <iframe class=\"well\" id=\"htmliframe\" src=\"/view/html/").append(mockMail.getId()).append("\" style=\"width: 780px; height: 700px; overflow: scroll;\" style=\"\" name=\"bodyHTML_iFrame\">\n")
                     .append("        </iframe>\n")
+                    .append("        </div>\n")
                     .append("    </div>");
         }
 
-		// just output the raw mail so we're sure everything is on the screen
-		if(mockMail.getRawMail() != null)
-		{
-			// output complete raw mail
-			output.append("    <div class=\"span10\" name=\"rawOutput\">\n")
+        // just output the raw mail so we're sure everything is on the screen
+        if(mockMail.getRawMail() != null)
+        {
+            // output complete raw mail
+            output.append("    <div class=\"span10\" name=\"rawOutput\">\n")
                     .append("       <h3>Complete raw mail output</h3>\n")
                     .append("       <div class=\"well\">")
                     .append(StringEscapeUtils.escapeHtml(mockMail.getRawMail()))
                     .append("</div>\n")
                     .append("    </div>\n");
-		}
+        }
 
         output.append("  </div>\n")
                 .append("</div>\n");
