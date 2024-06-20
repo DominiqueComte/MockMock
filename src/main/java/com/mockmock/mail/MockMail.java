@@ -13,6 +13,14 @@ public class MockMail implements Comparable<MockMail>
     private String rawMail;
     private MimeMessage mimeMessage;
     private long receivedTime;
+    private String fail;
+
+    public String getFail(){
+      return fail;
+    }
+    public void setFail(String fail){
+      this.fail = fail;
+    }
 
     public long getId()
     {

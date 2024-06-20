@@ -57,7 +57,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
             this.mockMail = new MockMail();
 
             // give the mockmail a unique id (currently its just a timestamp in ms)
-            this.mockMail.setId(DateTime.now().getMillis());
+            this.mockMail.setId(System.nanoTime());
         }
 
         /**
@@ -101,19 +101,19 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
          * Called when the DATA part of the SMTP exchange begins.
          * @param data InputStream
          * @throws RejectException never
-         * @throws IOException if there is a problem getting the message contents
          */
         @Override
-        public void data(InputStream data) throws RejectException, IOException
+        public void data(InputStream data) throws RejectException
         {
-            String rawMail = this.convertStreamToString(data);
-            mockMail.setRawMail(rawMail);
-
-            Session session = Session.getDefaultInstance(new Properties());
-            InputStream is = new ByteArrayInputStream(rawMail.getBytes());
-
+          
             try
             {
+                String rawMail = this.convertStreamToString(data);
+                mockMail.setRawMail(rawMail);
+
+                Session session = Session.getDefaultInstance(new Properties());
+                InputStream is = new ByteArrayInputStream(rawMail.getBytes());
+
                 MimeMessage message = new MimeMessage(session, is);
                 mockMail.setSubject(message.getSubject());
                 mockMail.setMimeMessage(message);
@@ -155,9 +155,9 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
                     }
                 }
             }
-            catch (MessagingException e)
+            catch (MessagingException | IOException e)
             {
-                e.printStackTrace();
+                mockMail.setFail(e.getClass().getSimpleName() + ": " + e.getMessage());
             }
 
             if(settings.getShowEmailInConsole())
@@ -186,6 +186,9 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
 				return;
 			}
 
+        if(mockMail.getFail() != null){
+          return;
+        }
             // set the received date
             mockMail.setReceivedTime(DateTime.now().getMillis());
 
@@ -202,7 +205,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
          * @param is InputStream
          * @return String
          */
-        protected String convertStreamToString(InputStream is)
+        protected String convertStreamToString(InputStream is) throws MessagingException
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder stringBuilder = new StringBuilder();
@@ -218,7 +221,7 @@ public class MockMockMessageHandlerFactory implements MessageHandlerFactory
             }
             catch (IOException e)
             {
-                e.printStackTrace();
+                throw new MessagingException("Error while converting email", e);
             }
 
             return stringBuilder.toString();
